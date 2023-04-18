@@ -121,6 +121,15 @@ body {
 	background-color: red;
 }
 
+footer{
+	display: flex;
+	justify-content: flex-end;
+	align-items: end;
+	color: rgba(255, 255, 255, 0.5);
+	background-color: #181a1ae3;
+	padding: 10px;
+}
+
 @keyframes btnZoom {
 	50% {
 		transform: scale(1.1);

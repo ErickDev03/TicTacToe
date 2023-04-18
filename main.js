@@ -1,7 +1,9 @@
 class Game {
+	#scoresO = 0;
+	#scoresX = 0;
 	#board = [];
-	#player = 'X';
 	#theWinner = null;
+	#player = 'X';
 	#isTie = false;
 
 	DrawSquares() {
@@ -21,32 +23,38 @@ class Game {
 		const squares = document.querySelectorAll('.square');
 		const spanSquares = document.querySelectorAll('.square .mark');
 		const shiftOf = document.getElementById('shift_of');
+		let boardFull = 0;
 
-		let counterAllSquare = 0;
-
-		squares.forEach((square, i) => {
-			square.addEventListener('click', (e) => {
+		squares.forEach((square) => {
+			square.addEventListener('click', () => {
 				const { value } = square.attributes.value;
-				counterAllSquare += i;
-				if (this.#board[~~value]) return;
-				spanSquares[~~value].textContent = this.#player;
-				this.#board[~~value] = this.#player;
+				const currentSquare = ~~value;
+
+				boardFull += currentSquare;
+				this.#isTie = boardFull === 36;
+
+				if (this.#board[currentSquare]) return;
+
+				spanSquares[currentSquare].textContent = this.#player;
+				this.#board[currentSquare] = this.#player;
 
 				this.#player = this.#player === 'X' ? 'O' : 'X';
-				shiftOf.textContent = `Player ${this.#player}`;``
+				shiftOf.textContent = `Player ${this.#player}`;
 
 				if (this.Winner()) {
+					boardFull = 0;
 					this.#theWinner = this.Winner();
-					this.NewGame();
+					this.#player = this.#theWinner;
 					this.Scores();
+					this.NewGame();
 					shiftOf.textContent = `Player ${this.#theWinner} is the Winner!`;
+					return;
 				}
-
-				this.#isTie = counterAllSquare === 36;
 
 				if (this.#isTie) {
 					this.NewGame();
 					shiftOf.textContent = `Is Tie`;
+					boardFull = 0;
 				}
 			});
 		});
@@ -98,8 +106,19 @@ class Game {
 	AnimateNewGame() {
 		const keyFrame = [
 			{
-				transform: 'rotate3d(7, 8, 1, 360deg) translateY(100vh)',
+				transform: 'rotate3d(0, 0, 0, 0) translateY(0)',
+				opacity: 0,
+				cursor: 'none',
+			},
+			{
+				transform: 'rotate3d(7, 8, 5, 360deg) translateY(100vh)',
 				opacity: 1,
+				cursor: 'none',
+			},
+			{
+				transform: 'rotate(90deg) translateX(0)',
+				opacity: 0,
+				cursor: 'none',
 			},
 		];
 
@@ -119,16 +138,13 @@ class Game {
 	Scores() {
 		const playerO = document.getElementById('player_O');
 		const playerX = document.getElementById('player_X');
+		const generateScores = () => Math.floor(Math.random() * 500 + 100);
 
-		const { random, floor } = Math;
-		const scores = floor(random() * 500 + 100);
+		this.#scoresX += this.#theWinner === 'X' ? generateScores() : 0;
+		this.#scoresO += this.#theWinner === 'O' ? generateScores() : 0;
 
-		if (this.#theWinner === 'O') {
-			playerO.textContent = `${scores}`;
-			return;
-		}
-
-		playerX.textContent = `${scores}`;
+		playerO.textContent = `${this.#scoresO}`;
+		playerX.textContent = `${this.#scoresX}`;
 	}
 
 	ControlsGame() {
