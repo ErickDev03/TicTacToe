@@ -42,6 +42,7 @@ class Game {
 
 			this.#currentPlayer = this.#currentPlayer === 'X' ? 'O' : 'X';
 			shiftOf.textContent = `Player ${this.#currentPlayer}`;
+			square.classList.add('marked');
 
 			if (this.Winner()) {
 				boardFull = 0;
@@ -58,7 +59,6 @@ class Game {
 				shiftOf.textContent = `Is Tie`;
 				boardFull = 0;
 			}
-			square.classList.add('marked');
 		};
 
 		squares.forEach((square) => {
@@ -105,6 +105,7 @@ class Game {
 				}
 				placeholder.classList.remove('active');
 			});
+			square.classList.remove('marked');
 		});
 	}
 
