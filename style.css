@@ -25,6 +25,7 @@ body {
 	height: 5rem;
 	align-items: center;
 	background-color: #181a1a;
+	z-index: 1;
 }
 
 .game_header .scores span {
@@ -87,6 +88,7 @@ body {
 	display: none;
 	font-size: 2rem;
 	position: absolute;
+	opacity: 0.3;
 }
 
 .wrapper-squares .square:hover .placeholder.active {
@@ -94,9 +96,9 @@ body {
 	color: white;
 }
 
-.wrapper-squares .square:hover {
+/* .wrapper-squares .square:hover {
 	transform: scale(1.1);
-}
+} */
 
 .wrapper-squares .square.marked{
 	transform: scale(1);
@@ -119,7 +121,7 @@ body {
 	color: white;
 }
 
-.game_controls > button:focus {
+.game_controls .btn_green:focus {
 	animation: btnZoom .7s ease;
 }
 
@@ -128,7 +130,18 @@ body {
 }
 
 .game_controls .btn_red {
-	background-color: red;
+	background-color: tomato;
+	position: absolute;
+	top: 50px;
+	right: 10px;
+	z-index: 0;
+	transition: top .3s ease, opacity .3s ease;
+	opacity: .5;
+}
+
+.game_controls .btn_red:hover{
+	top: 55px;
+	opacity: 1;
 }
 
 footer {

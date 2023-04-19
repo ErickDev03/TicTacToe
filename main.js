@@ -117,6 +117,7 @@ class Game {
 
 		squares.forEach((square) => {
 			square.animate(keyFrame, timing());
+			square.children.item(0).textContent = '';
 			square.children.item(1).textContent = '';
 			square.classList.remove('marked');
 		});
