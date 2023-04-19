@@ -25,38 +25,42 @@ class Game {
 		const shiftOf = document.getElementById('shift_of');
 		let boardFull = 0;
 
+		const handlerCrossOutBoard = (square) => {
+			const { value } = square.attributes.value;
+
+			const currentSquare = ~~value;
+
+			boardFull += currentSquare;
+			this.#isTie = boardFull === 36;
+
+			if (this.#board[currentSquare]) return;
+
+			spanSquares[currentSquare].textContent = this.#player;
+			this.#board[currentSquare] = this.#player;
+
+			this.#player = this.#player === 'X' ? 'O' : 'X';
+			shiftOf.textContent = `Player ${this.#player}`;
+
+			if (this.Winner()) {
+				boardFull = 0;
+				this.#theWinner = this.Winner();
+				this.#player = this.#theWinner;
+				this.Scores();
+				this.NewGame();
+				shiftOf.textContent = `Player ${this.#theWinner} is the Winner!`;
+				return;
+			}
+
+			if (this.#isTie) {
+				this.NewGame();
+				shiftOf.textContent = `Is Tie`;
+				boardFull = 0;
+			}
+		};
+
 		squares.forEach((square) => {
-			square.addEventListener('click', () => {
-				const { value } = square.attributes.value;
-				const currentSquare = ~~value;
-
-				boardFull += currentSquare;
-				this.#isTie = boardFull === 36;
-
-				if (this.#board[currentSquare]) return;
-
-				spanSquares[currentSquare].textContent = this.#player;
-				this.#board[currentSquare] = this.#player;
-
-				this.#player = this.#player === 'X' ? 'O' : 'X';
-				shiftOf.textContent = `Player ${this.#player}`;
-
-				if (this.Winner()) {
-					boardFull = 0;
-					this.#theWinner = this.Winner();
-					this.#player = this.#theWinner;
-					this.Scores();
-					this.NewGame();
-					shiftOf.textContent = `Player ${this.#theWinner} is the Winner!`;
-					return;
-				}
-
-				if (this.#isTie) {
-					this.NewGame();
-					shiftOf.textContent = `Is Tie`;
-					boardFull = 0;
-				}
-			});
+			square.addEventListener('click', () => handlerCrossOutBoard(square));
+			this.Placeholder(square);
 		});
 	}
 
@@ -85,6 +89,20 @@ class Game {
 		}
 
 		return null;
+	}
+
+	Placeholder(square) {
+		const allPlaceholder = document.querySelectorAll('.placeholder');
+		allPlaceholder.forEach((placeholder) => {
+			square.addEventListener('mouseover', () => {
+				if (square.children.item(1).textContent === '') {
+					placeholder.textContent = this.#player;
+					placeholder.classList.add('active');
+					return;
+				}
+				placeholder.classList.remove('active');
+			});
+		});
 	}
 
 	NewGame() {
@@ -149,7 +167,11 @@ class Game {
 
 	ControlsGame() {
 		const btnNewGame = document.getElementById('new_game');
-		btnNewGame.addEventListener('click', () => this.NewGame());
+		btnNewGame.addEventListener('click', () => {
+			this.#scoresO = 0;
+			this.#scoresX = 0;
+			this.NewGame();
+		});
 	}
 
 	Main() {

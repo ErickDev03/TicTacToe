@@ -9,6 +9,7 @@
 body {
 	font-family: 'Ubuntu', sans-serif;
 }
+
 .game_app {
 	display: flex;
 	height: 100vh;
@@ -39,7 +40,6 @@ body {
 	align-items: center;
 	height: 100vh;
 	flex-direction: column;
-  overflow: hidden;
 }
 
 .game_table .player {
@@ -69,21 +69,28 @@ body {
 	display: flex;
 	justify-content: center;
 	align-items: center;
+	overflow: hidden;
+	position: relative;
 }
 
-.wrapper-squares .square .mark{
+.wrapper-squares .square .mark {
 	font-size: 2rem;
 	color: white;
-
+	width: 100%;
+	height: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 }
 
 .wrapper-squares .square .placeholder {
 	display: none;
 	font-size: 2rem;
 	opacity: 0.1;
+	position: absolute;
 }
 
-.wrapper-squares .square:hover .placeholder {
+.wrapper-squares .square:hover .placeholder.active {
 	display: flex;
 	color: white;
 }
@@ -109,7 +116,7 @@ body {
 	color: white;
 }
 
-.game_controls > button:active {
+.game_controls > button:focus {
 	animation: btnZoom 1s ease;
 }
 
@@ -121,10 +128,9 @@ body {
 	background-color: red;
 }
 
-footer{
+footer {
 	display: flex;
 	justify-content: flex-end;
-	align-items: end;
 	color: rgba(255, 255, 255, 0.5);
 	background-color: #181a1ae3;
 	padding: 10px;
