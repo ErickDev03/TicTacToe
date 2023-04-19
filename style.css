@@ -86,7 +86,6 @@ body {
 .wrapper-squares .square .placeholder {
 	display: none;
 	font-size: 2rem;
-	opacity: 0.1;
 	position: absolute;
 }
 
@@ -96,8 +95,12 @@ body {
 }
 
 .wrapper-squares .square:hover {
-	opacity: 0.5;
 	transform: scale(1.1);
+}
+
+.wrapper-squares .square.marked{
+	transform: scale(1);
+	opacity: 0.3;
 }
 
 .game_controls {
@@ -117,7 +120,7 @@ body {
 }
 
 .game_controls > button:focus {
-	animation: btnZoom 1s ease;
+	animation: btnZoom .7s ease;
 }
 
 .game_controls .btn_green {

@@ -1,9 +1,12 @@
+const playerO = document.getElementById('player_O');
+const playerX = document.getElementById('player_X');
+const shiftOf = document.getElementById('shift_of');
 class Game {
 	#scoresO = 0;
 	#scoresX = 0;
 	#board = [];
 	#theWinner = null;
-	#player = 'X';
+	#currentPlayer = 'X';
 	#isTie = false;
 
 	DrawSquares() {
@@ -22,7 +25,6 @@ class Game {
 	CrossOutBoard() {
 		const squares = document.querySelectorAll('.square');
 		const spanSquares = document.querySelectorAll('.square .mark');
-		const shiftOf = document.getElementById('shift_of');
 		let boardFull = 0;
 
 		const handlerCrossOutBoard = (square) => {
@@ -35,16 +37,16 @@ class Game {
 
 			if (this.#board[currentSquare]) return;
 
-			spanSquares[currentSquare].textContent = this.#player;
-			this.#board[currentSquare] = this.#player;
+			spanSquares[currentSquare].textContent = this.#currentPlayer;
+			this.#board[currentSquare] = this.#currentPlayer;
 
-			this.#player = this.#player === 'X' ? 'O' : 'X';
-			shiftOf.textContent = `Player ${this.#player}`;
+			this.#currentPlayer = this.#currentPlayer === 'X' ? 'O' : 'X';
+			shiftOf.textContent = `Player ${this.#currentPlayer}`;
 
 			if (this.Winner()) {
 				boardFull = 0;
 				this.#theWinner = this.Winner();
-				this.#player = this.#theWinner;
+				this.#currentPlayer = this.#theWinner;
 				this.Scores();
 				this.NewGame();
 				shiftOf.textContent = `Player ${this.#theWinner} is the Winner!`;
@@ -56,6 +58,7 @@ class Game {
 				shiftOf.textContent = `Is Tie`;
 				boardFull = 0;
 			}
+			square.classList.add('marked');
 		};
 
 		squares.forEach((square) => {
@@ -96,7 +99,7 @@ class Game {
 		allPlaceholder.forEach((placeholder) => {
 			square.addEventListener('mouseover', () => {
 				if (square.children.item(1).textContent === '') {
-					placeholder.textContent = this.#player;
+					placeholder.textContent = this.#currentPlayer;
 					placeholder.classList.add('active');
 					return;
 				}
@@ -107,14 +110,14 @@ class Game {
 
 	NewGame() {
 		const squares = document.querySelectorAll('.square');
-		const spanSquares = document.querySelectorAll('.square .mark');
 		const { keyFrame, timing } = this.AnimateNewGame();
 
 		if (this.#board.length <= 0) return;
 
-		squares.forEach((square, i) => {
+		squares.forEach((square) => {
 			square.animate(keyFrame, timing());
-			spanSquares[i].textContent = '';
+			square.children.item(1).textContent = '';
+			square.classList.remove('marked');
 		});
 
 		this.#board = [];
@@ -154,8 +157,6 @@ class Game {
 	}
 
 	Scores() {
-		const playerO = document.getElementById('player_O');
-		const playerX = document.getElementById('player_X');
 		const generateScores = () => Math.floor(Math.random() * 500 + 100);
 
 		this.#scoresX += this.#theWinner === 'X' ? generateScores() : 0;
@@ -168,10 +169,18 @@ class Game {
 	ControlsGame() {
 		const btnNewGame = document.getElementById('new_game');
 		btnNewGame.addEventListener('click', () => {
-			this.#scoresO = 0;
-			this.#scoresX = 0;
 			this.NewGame();
+			this.ResetGame();
 		});
+	}
+
+	ResetGame() {
+		this.#scoresO = 0;
+		this.#scoresX = 0;
+		playerO.textContent = this.#scoresO;
+		playerX.textContent = this.#scoresX;
+		this.#currentPlayer = 'X';
+		shiftOf.textContent = `Player ${this.#currentPlayer}`;
 	}
 
 	Main() {
