@@ -168,6 +168,19 @@ class Game {
 		playerX.textContent = `${this.#scoresX}`;
 	}
 
+	History() {
+		const btnOpenHistory = document.getElementById('history');
+		const btnCloseHistory = document.getElementById('close_history');
+		const historyCard = document.querySelector('.game_history');
+
+		btnOpenHistory.addEventListener('mouseover', () => {
+			historyCard.classList.add('open_history');
+		});
+		btnCloseHistory.addEventListener('click', () => {
+			historyCard.classList.remove('open_history');
+		})
+	}
+
 	ControlsGame() {
 		const btnNewGame = document.getElementById('new_game');
 		btnNewGame.addEventListener('click', () => {
@@ -189,6 +202,7 @@ class Game {
 		this.DrawSquares();
 		this.CrossOutBoard();
 		this.ControlsGame();
+		this.History();
 	}
 
 	Init() {

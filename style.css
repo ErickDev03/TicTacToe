@@ -16,6 +16,7 @@ body {
 	width: 100%;
 	flex-direction: column;
 	overflow: hidden;
+	position: relative;
 }
 
 .game_header {
@@ -100,9 +101,88 @@ body {
 	transform: scale(1.1);
 } */
 
-.wrapper-squares .square.marked{
+.wrapper-squares .square.marked {
 	transform: scale(1);
 	opacity: 0.3;
+}
+
+.game_history {
+	position: absolute;
+	top: 130px;
+	right: -340px;
+	z-index: 0;
+	width: 300px;
+	background-color: #181a1a;
+	border-radius: 0.3rem;
+	overflow: hidden;
+	transition: right 1s cubic-bezier(0.65,-0.2, 0.04, 1.08);
+}
+
+.game_history.open_history{
+	right: 10px;
+}
+
+.game_history .header_history {
+	height: 2.5rem;
+	width: 100%;
+	background-color: #fff;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: 0 10px;
+	color: #181a1a;
+}
+
+.game_history .header_history button {
+	padding: 5px 10px;
+	border-radius: 50%;
+	background-color: tomato;
+	cursor: pointer;
+	font-size: 1rem;
+	color: white;
+}
+
+.game_history  .body_history{
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	flex-direction: column;
+}
+
+.game_history  .body_history .history_elem.primary{
+	padding: 5px 10px;
+	font-size: 1rem;
+}
+
+.game_history  .body_history .history_elem{
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	width: 100%;
+	padding: 5px 20px;
+	border-bottom: 1px solid rgba(255, 255, 255, 0.5);
+	color: white;
+	font-size: .8rem;
+}
+
+.game_history  .body_history .history_elem:last-child{
+	border: none;
+}
+
+.game_history  .body_history  .message{
+	color: rgba(255, 255, 255, 0.3);
+	font-size: .8rem;
+	padding: 10px;
+}
+
+
+.game_history  .body_history .history_elem button {
+	padding: 3px 10px;
+	border-radius: .3rem;
+	cursor: pointer;
+	background-color: rgb(0, 70, 128);
+	color: white;
+	font-weight: 700;
 }
 
 .game_controls {
@@ -122,7 +202,7 @@ body {
 }
 
 .game_controls .btn_green:focus {
-	animation: btnZoom .7s ease;
+	animation: btnZoom 0.7s ease;
 }
 
 .game_controls .btn_green {
@@ -135,11 +215,11 @@ body {
 	top: 50px;
 	right: 10px;
 	z-index: 0;
-	transition: top .3s ease, opacity .3s ease;
-	opacity: .5;
+	transition: top 0.3s ease, opacity 0.3s ease;
+	opacity: 0.5;
 }
 
-.game_controls .btn_red:hover{
+.game_controls .btn_red:hover {
 	top: 55px;
 	opacity: 1;
 }
