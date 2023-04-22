@@ -11,27 +11,27 @@
   <div class="game_app">
     <div class="game_header">
       <div class="scores">
-        <span>Score X</span>
-        <span id="player_X">0</span>
+        <span class="center">Score X</span>
+        <span class="center" id="player_X">0</span>
       </div>
       <div class="scores">
-        <span>Score O</span>
-        <span id="player_O">0</span>
+        <span class="center">Score O</span>
+        <span class="center" id="player_O">0</span>
       </div>
     </div>
-    <div class="game_table">
+    <div class="game_table center">
       <div class="player">
         <span id="shift_of">Player X</span>
       </div>
       <div class="wrapper-squares"></div>
     </div>
     <div class="game_history">
-      <div class="header_history">
+      <div class="header_history between">
         <Span>History</Span>
         <button id="close_history">x</button>
       </div>
-      <div class="body_history">
-        <div class="history_elem primary">
+      <div class="body_history between" id="history_elems">
+        <div class="history_elem primary between">
           <span>Player </span>
           <span>Move</span>
           <span>Action</span>
@@ -39,7 +39,7 @@
         <span class="message">Empty history... 🥱</span>
       </div>
     </div>
-    <div class="game_controls">
+    <div class="game_controls center">
       <button class="btn_green" id="new_game">
         New Game
       </button>

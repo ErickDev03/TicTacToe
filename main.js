@@ -1,6 +1,7 @@
 const playerO = document.getElementById('player_O');
 const playerX = document.getElementById('player_X');
 const shiftOf = document.getElementById('shift_of');
+const historyElems = document.getElementById('history_elems');
 class Game {
 	#scoresO = 0;
 	#scoresX = 0;
@@ -8,13 +9,14 @@ class Game {
 	#theWinner = null;
 	#currentPlayer = 'X';
 	#isTie = false;
+	#historyStorage = [];
 
 	DrawSquares() {
 		const wrapperSquares = document.querySelector('.wrapper-squares');
 		const templatesSquares = (id) => `
-      <div class="square" value="${id}">
+      <div class="square center" value="${id}">
         <span class="placeholder"></span>
-        <span class="mark"></span>
+        <span class="mark center"></span>
       </div>
     `;
 		for (let square = 0; square < 9; square++) {
@@ -59,6 +61,16 @@ class Game {
 				shiftOf.textContent = `Is Tie`;
 				boardFull = 0;
 			}
+
+			this.#historyStorage = [
+				...this.#historyStorage,
+				{
+					player: this.#board[currentSquare],
+					position: currentSquare,
+				},
+			];
+
+			this.History();
 		};
 
 		squares.forEach((square) => {
@@ -124,6 +136,16 @@ class Game {
 
 		this.#board = [];
 		this.#isTie = false;
+		this.#historyStorage = [];
+
+		historyElems.innerHTML = `
+		<div class="history_elem primary between">
+          <span>Player </span>
+          <span>Move</span>
+          <span>Action</span>
+        </div>
+    <span class="message">Empty history... 🥱</span>
+		`;
 	}
 
 	AnimateNewGame() {
@@ -172,13 +194,31 @@ class Game {
 		const btnOpenHistory = document.getElementById('history');
 		const btnCloseHistory = document.getElementById('close_history');
 		const historyCard = document.querySelector('.game_history');
+		const message = document.querySelector('.message');
+
+		const templateHistoryElem = ({ player, position }) => `
+			<div class="history_elem between">
+						<span>${player}</span>
+						<span>#${position}</span>
+						<button>Go</button>
+			</div>
+		`;
+
+		message.style.display =
+			this.#historyStorage.length === 0 ? 'block' : 'none';
+
+		for (let i = 0; i < this.#historyStorage.length; i++) {
+			historyElems.innerHTML += templateHistoryElem(
+				this.#historyStorage.splice(i)[i]
+			);
+		}
 
 		btnOpenHistory.addEventListener('mouseover', () => {
 			historyCard.classList.add('open_history');
 		});
 		btnCloseHistory.addEventListener('click', () => {
 			historyCard.classList.remove('open_history');
-		})
+		});
 	}
 
 	ControlsGame() {
@@ -186,6 +226,7 @@ class Game {
 		btnNewGame.addEventListener('click', () => {
 			this.NewGame();
 			this.ResetGame();
+			this.History();
 		});
 	}
 
@@ -194,7 +235,16 @@ class Game {
 		this.#scoresX = 0;
 		playerO.textContent = this.#scoresO;
 		playerX.textContent = this.#scoresX;
+		this.#historyStorage = [];
 		this.#currentPlayer = 'X';
+		historyElems.innerHTML = `
+		<div class="history_elem primary between">
+          <span>Player </span>
+          <span>Move</span>
+          <span>Action</span>
+        </div>
+    <span class="message">Empty history... 🥱</span>
+		`;
 		shiftOf.textContent = `Player ${this.#currentPlayer}`;
 	}
 

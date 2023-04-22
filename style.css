@@ -1,4 +1,16 @@
 @import url('https://fonts.googleapis.com/css2?family=Ubuntu:wght@700&display=swap');
+
+:root {
+	--bg-primary: #161b22;
+	--bg-sec: #181a1ae3;
+	--bg-third: #fff;
+	--bg-button-primary: #008000;
+	--bg-button-sec: #ff6347;
+	--bg-button-third: #004680;
+	--font-color: #fff;
+	--font-color-2: #181a1a;
+}
+
 * {
 	margin: 0;
 	padding: 0;
@@ -25,21 +37,16 @@ body {
 	width: 100%;
 	height: 5rem;
 	align-items: center;
-	background-color: #181a1a;
+	background-color: var(--bg-primary);
 	z-index: 1;
 }
 
 .game_header .scores span {
-	color: white;
-	display: flex;
-	justify-content: center;
+	color: var(--font-color);
 }
 
 .game_table {
-	background-color: #181a1ae3;
-	display: flex;
-	justify-content: center;
-	align-items: center;
+	background-color: var(--bg-sec);
 	height: 100vh;
 	flex-direction: column;
 }
@@ -47,7 +54,7 @@ body {
 .game_table .player {
 	padding: 2rem;
 	font-size: 1.1rem;
-	color: white;
+	color: var(--font-color);
 }
 
 .wrapper-squares {
@@ -64,25 +71,19 @@ body {
 .wrapper-squares .square {
 	width: 4rem;
 	height: 4rem;
-	background-color: #181a1a;
+	background-color: var(--bg-primary);
 	border-radius: 0.2rem;
 	cursor: pointer;
-	transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
-	display: flex;
-	justify-content: center;
-	align-items: center;
+	transition: opacity 0.5s ease-in-out;
 	overflow: hidden;
 	position: relative;
 }
 
 .wrapper-squares .square .mark {
 	font-size: 2rem;
-	color: white;
+	color: var(--font-color);
 	width: 100%;
 	height: 100%;
-	display: flex;
-	justify-content: center;
-	align-items: center;
 }
 
 .wrapper-squares .square .placeholder {
@@ -94,12 +95,8 @@ body {
 
 .wrapper-squares .square:hover .placeholder.active {
 	display: flex;
-	color: white;
+	color: var(--font-color);
 }
-
-/* .wrapper-squares .square:hover {
-	transform: scale(1.1);
-} */
 
 .wrapper-squares .square.marked {
 	transform: scale(1);
@@ -108,89 +105,86 @@ body {
 
 .game_history {
 	position: absolute;
-	top: 130px;
+	top: 100px;
 	right: -340px;
 	z-index: 0;
 	width: 300px;
-	background-color: #181a1a;
+	background-color: var(--bg-primary);
 	border-radius: 0.3rem;
 	overflow: hidden;
-	transition: right 1s cubic-bezier(0.65,-0.2, 0.04, 1.08);
+	transition: right 1s cubic-bezier(0.65, -0.2, 0.04, 1.08);
+	border: 1px solid rgba(255, 255, 255, 0.2);
+	box-shadow: 0 0 4px rgba(255, 255, 255, 0.1);
 }
 
-.game_history.open_history{
+.game_history.open_history {
 	right: 10px;
 }
 
 .game_history .header_history {
 	height: 2.5rem;
 	width: 100%;
-	background-color: #fff;
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
+	background-color: var(--bg-third);
 	padding: 0 10px;
-	color: #181a1a;
+	color: var(--font-color-2);
 }
 
 .game_history .header_history button {
 	padding: 5px 10px;
 	border-radius: 50%;
-	background-color: tomato;
+	background-color: var(--bg-button-sec);
 	cursor: pointer;
 	font-size: 1rem;
-	color: white;
+	color: var(--font-color);
 }
 
-.game_history  .body_history{
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
+.game_history .body_history {
 	flex-direction: column;
 }
 
-.game_history  .body_history .history_elem.primary{
-	padding: 5px 10px;
+.game_history .body_history .history_elem.primary {
+	padding:15px 20px;
 	font-size: 1rem;
 }
 
-.game_history  .body_history .history_elem{
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
+.game_history .body_history .history_elem {
 	width: 100%;
-	padding: 5px 20px;
-	border-bottom: 1px solid rgba(255, 255, 255, 0.5);
-	color: white;
-	font-size: .8rem;
+	padding:10px 20px;
+	border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+	color: var(--font-color);
+	font-size: 0.8rem;
 }
 
-.game_history  .body_history .history_elem:last-child{
+.game_history .body_history .history_elem:last-child {
 	border: none;
 }
 
-.game_history  .body_history  .message{
+.game_history .body_history .message {
 	color: rgba(255, 255, 255, 0.3);
-	font-size: .8rem;
+	font-size: 0.8rem;
 	padding: 10px;
 }
 
-
-.game_history  .body_history .history_elem button {
-	padding: 3px 10px;
-	border-radius: .3rem;
+.game_history .body_history .history_elem button {
+	padding: 10px 15px;
+	border-radius: 0.3rem;
 	cursor: pointer;
-	background-color: rgb(0, 70, 128);
-	color: white;
 	font-weight: 700;
+	opacity: .8;
+	transition:  1s ease;
+	outline: 1px solid var(--bg-button-third);
+	background-color: transparent;
+	color: var(--font-color); 
+}
+
+.game_history .body_history .history_elem button:hover{
+	background-color: var(--bg-button-third);
+	opacity: 1;
 }
 
 .game_controls {
-	display: flex;
 	padding: 1rem;
-	justify-content: center;
-	gap: 2rem;
-	background-color: #181a1ae3;
+	background-color: var(--bg-sec);
 }
 
 .game_controls > button {
@@ -198,7 +192,7 @@ body {
 	border-radius: 0.2rem;
 	cursor: pointer;
 	font-weight: 700;
-	color: white;
+	color: var(--font-color);
 }
 
 .game_controls .btn_green:focus {
@@ -206,11 +200,11 @@ body {
 }
 
 .game_controls .btn_green {
-	background-color: green;
+	background-color: var(--bg-button-primary);
 }
 
 .game_controls .btn_red {
-	background-color: tomato;
+	background-color: var(--bg-button-sec);
 	position: absolute;
 	top: 50px;
 	right: 10px;
@@ -228,15 +222,28 @@ footer {
 	display: flex;
 	justify-content: flex-end;
 	color: rgba(255, 255, 255, 0.5);
-	background-color: #181a1ae3;
+	background-color: var(--bg-sec);
 	padding: 10px;
+}
+
+/* Special style class */
+.center {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.between {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
 }
 
 @keyframes btnZoom {
 	50% {
 		transform: scale(1.1);
-		background-color: azure;
-		color: black;
+		background-color: var(--bg-third);
+		color: var(--font-color-2);
 	}
 	100% {
 		transform: scale(1);
