@@ -1,0 +1,35 @@
+.game_controls {
+	padding: 1rem;
+	background-color: var(--bg-sec);
+}
+
+.game_controls > button {
+	padding: 10px 15px;
+	border-radius: 0.2rem;
+	cursor: pointer;
+	font-weight: 700;
+	color: var(--font-color);
+}
+
+.game_controls .btn_green:focus {
+	animation: btnZoom 0.7s ease;
+}
+
+.game_controls .btn_green {
+	background-color: var(--bg-button-primary);
+}
+
+.game_controls .btn_red {
+	background-color: var(--bg-button-sec);
+	position: absolute;
+	top: 50px;
+	right: 10px;
+	z-index: 0;
+	transition: top 0.3s ease, opacity 0.3s ease;
+	opacity: 0.5;
+}
+
+.game_controls .btn_red:hover {
+	top: 55px;
+	opacity: 1;
+}

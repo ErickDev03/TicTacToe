@@ -1,0 +1,78 @@
+.game_history {
+	position: absolute;
+	top: 100px;
+	right: -340px;
+	z-index: 0;
+	width: 300px;
+	background-color: var(--bg-primary);
+	border-radius: 0.3rem;
+	overflow: hidden;
+	transition: right 1s cubic-bezier(0.65, -0.2, 0.04, 1.08);
+	border: 1px solid rgba(255, 255, 255, 0.2);
+	box-shadow: 0 0 4px rgba(255, 255, 255, 0.1);
+}
+
+.game_history.open_history {
+	right: 10px;
+}
+
+.game_history .header_history {
+	height: 2.5rem;
+	width: 100%;
+	background-color: var(--bg-third);
+	padding: 0 10px;
+	color: var(--font-color-2);
+}
+
+.game_history .header_history button {
+	padding: 5px 10px;
+	border-radius: 50%;
+	background-color: var(--bg-button-sec);
+	cursor: pointer;
+	font-size: 1rem;
+	color: var(--font-color);
+}
+
+.game_history .body_history {
+	flex-direction: column;
+}
+
+.game_history .body_history .history_elem.primary {
+	padding: 15px 20px;
+	font-size: 1rem;
+}
+
+.game_history .body_history .history_elem {
+	width: 100%;
+	padding: 10px 20px;
+	border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+	color: var(--font-color);
+	font-size: 0.8rem;
+}
+
+.game_history .body_history .history_elem:last-child {
+	border: none;
+}
+
+.game_history .body_history .message {
+	color: rgba(255, 255, 255, 0.3);
+	font-size: 0.8rem;
+	padding: 10px;
+}
+
+.game_history .body_history .history_elem button {
+	padding: 10px 15px;
+	border-radius: 0.3rem;
+	cursor: pointer;
+	font-weight: 700;
+	opacity: 0.8;
+	transition: 1s ease;
+	outline: 1px solid var(--bg-button-third);
+	background-color: transparent;
+	color: var(--font-color);
+}
+
+.game_history .body_history .history_elem button:hover {
+	background-color: var(--bg-button-third);
+	opacity: 1;
+}
